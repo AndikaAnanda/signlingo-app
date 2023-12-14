@@ -1,9 +1,17 @@
 const bcrypt = require('bcrypt')
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken')
-const { createUser, getUserByEmail } = require('./database')
+const { createUser, getUserByEmail } = require('../model/user')
 
-const signup = async (req, res) => {
+const signup_get = async (req, res) => {
+    res.send('<html><body><h1>SIGNUP PAGE</h1></body></html>')
+}
+
+const login_get = async (req, res) => {
+    res.send('<html><body><h1>LOGIN PAGE</h1></body></html>')
+}
+
+const signup_post = async (req, res) => {
     try {
         const { email, password } = req.body
         const existingUser = await getUserByEmail(email)
@@ -27,7 +35,7 @@ const signup = async (req, res) => {
 }
 
 
-const login = async (req, res) => {
+const login_post = async (req, res) => {
     try {
         const { email, password } = req.body
         const user = await getUserByEmail(email)
@@ -55,4 +63,4 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = { signup, login }
+module.exports = { signup_get, login_get, signup_post, login_post }
