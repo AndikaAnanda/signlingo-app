@@ -22,9 +22,9 @@ const executeQuery = (sql, values = []) => {
     })
 }
 
-const createUser = async (email, password) => {
-    const sql = 'INSERT INTO users (email, password) VALUES (?, ?)'
-    const values = [email, password]
+const createUser = async (id, email, password) => {
+    const sql = 'INSERT INTO users (id, email, password) VALUES (?, ?, ?)'
+    const values = [id, email, password]
 
     try {
         executeQuery(sql, values)

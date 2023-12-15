@@ -1,7 +1,17 @@
 const bcrypt = require('bcrypt')
-const argon2 = require('argon2')
+const { nanoid } = require('nanoid')
 const jwt = require('jsonwebtoken')
 const { createUser, getUserByEmail } = require('../model/user')
+
+// session expire long (in seconds)
+const maxSession = 3 * 24 * 60 * 60
+
+// function for create jwt token
+const createToken = (id) => {
+    return jwt.sign({ id }, 'my_secret', {
+        expiresIn: maxSession
+    })
+}
 
 const signup_get = async (req, res) => {
     res.send('<html><body><h1>SIGNUP PAGE</h1></body></html>')
@@ -21,8 +31,14 @@ const signup_post = async (req, res) => {
             })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        console.log(hashedPassword)
-        await createUser(email, hashedPassword)
+        const id = nanoid(10)
+        await createUser(id, email, hashedPassword)
+        const token = createToken(id)
+        // store token to cookies
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: maxSession * 1000
+        })
         res.status(201).json({
             message: 'User successfully signed in'
         })
@@ -33,7 +49,6 @@ const signup_post = async (req, res) => {
         })
     }
 }
-
 
 const login_post = async (req, res) => {
     try {
@@ -50,10 +65,12 @@ const login_post = async (req, res) => {
                 message: 'Invalid password'
             })
         }
-        const token = jwt.sign({
-            userId: user.id,
-            email: user.email
-        }, 'secret_key')
+        const token = createToken(user.id)
+        // store token to cookies
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            maxAge: maxSession * 1000
+        })
         return res.json({token})
     } catch (error) {
         console.log(error)
