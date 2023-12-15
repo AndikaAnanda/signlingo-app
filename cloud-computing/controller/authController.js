@@ -22,6 +22,13 @@ const login_get = async (req, res) => {
     res.send('<html><body><h1>LOGIN PAGE</h1></body></html>')
 }
 
+const logout_get = async (req, res) => {
+    res.cookie('jwt', '', {
+        maxAge: 1
+    })
+    res.redirect('/')
+}
+
 const signup_post = async (req, res) => {
     try {
         const { email, password } = req.body
