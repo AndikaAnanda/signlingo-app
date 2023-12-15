@@ -2,13 +2,14 @@ const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 const jwt = require('jsonwebtoken')
 const { createUser, getUserByEmail } = require('../model/user')
+const jwtAuth = require('../middleware/authMiddleware')
 
 // session expire long (in seconds)
 const maxSession = 3 * 24 * 60 * 60
 
 // function for create jwt token
 const createToken = (id) => {
-    return jwt.sign({ id }, 'my_secret', {
+    return jwt.sign({ id }, 'bangkit2023', {
         expiresIn: maxSession
     })
 }
