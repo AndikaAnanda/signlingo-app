@@ -1,6 +1,16 @@
 const jwt = require('jsonwebtoken')
 const { getEmailById } = require('../model/user')
 
+// session expire long (in seconds)
+const maxSession = 3 * 24 * 60 * 60
+
+// function for create jwt token
+const createToken = (id) => {
+    return jwt.sign({ id }, process.env.SECRET_KEY, {
+        expiresIn: maxSession
+    })
+}
+
 const jwtAuth = (req, res, next) => {
     const token = req.cookies.jwt
     // check jwt is exist & verified
@@ -40,4 +50,4 @@ const checkUser = (req, res, next) => {
     }
 }
 
-module.exports = { jwtAuth, checkUser }
+module.exports = { maxSession, createToken, jwtAuth, checkUser }
