@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require ('cookie-parser')
 const routes = require('./controller/routes')
-
+require('dotenv').config()
 const app = express()
 const PORT = process.env.PORT || 3000
 

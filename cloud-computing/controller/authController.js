@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
 const jwt = require('jsonwebtoken')
 const { createUser, getUserByEmail } = require('../model/user')
-const jwtAuth = require('../middleware/authMiddleware')
 
 // session expire long (in seconds)
 const maxSession = 3 * 24 * 60 * 60
@@ -88,4 +87,4 @@ const login_post = async (req, res) => {
     }
 }
 
-module.exports = { signup_get, login_get, signup_post, login_post }
+module.exports = { signup_get, login_get, logout_get, signup_post, login_post }
