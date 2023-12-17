@@ -5,7 +5,7 @@ const convertWord_post = async (req, res) => {
     try {
         const { word } = req.query
         // check if word doesn't exist word contain symbol or number
-        if(!word || !/^[a-zA-Z]+$/.test(letter)) {
+        if(!word || !/^[a-zA-Z]+$/.test(word)) {
             res.status(400).json({
                 message: "Invalid word provided"
             })
