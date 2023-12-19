@@ -22,9 +22,9 @@ const executeQuery = (sql, values = []) => {
     })
 }
 
-const createUser = async (id, email, password) => {
-    const sql = 'INSERT INTO users (id, email, password) VALUES (?, ?, ?)'
-    const values = [id, email, password]
+const createUser = async (id, name, email, password) => {
+    const sql = 'INSERT INTO users (id, name, email, password) VALUES (?, ?, ?, ?)'
+    const values = [id, name, email, password]
 
     try {
         executeQuery(sql, values)
@@ -57,4 +57,4 @@ const getEmailById = async (id) => {
     }
 }
 
-module.exports = { createUser, getUserByEmail, getEmailById}
+module.exports = { createUser, getUserByEmail, getEmailById }

@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3000
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use('/public/images', express.static(path.join(__dirname, 'sign_letters')))
+app.use(express.static('/public'))
+
 
 routes(app)
 

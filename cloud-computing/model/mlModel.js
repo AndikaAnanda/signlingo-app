@@ -3,7 +3,7 @@ const tfjs = require('@tensorflow/tfjs-node')
 let model
 
 const loadModel = async () => {
-    const modelUrl = '#FILL WITH BUCKET URL'
+    const modelUrl = 'https://storage.googleapis.com/signlingo-ml-model/model/model.json'
     if (!model) {
         model = await tfjs.loadLayersModel(modelUrl)
     }
@@ -13,7 +13,7 @@ const loadModel = async () => {
 const predict = async (model, imageBuffer) => {
     const tensor = tfjs.node
     .decodeJpeg(imageBuffer)
-    .resizeNearestNeighbor([150, 150])
+    .resizeNearestNeighbor([224, 224])
     .expandDims()
     .toFloat()
 
@@ -21,4 +21,4 @@ const predict = async (model, imageBuffer) => {
     return predictions
 }
 
-module.exports = { loadModel, predict}
+module.exports = { loadModel, predict }

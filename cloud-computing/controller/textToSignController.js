@@ -1,16 +1,16 @@
 const path = require('path')
 const fs = require('fs')
 
-const convertWord_post = async (req, res) => {
+const textToSign_post = async (req, res) => {
     try {
-        const { word } = req.query
-        // check if word doesn't exist word contain symbol or number
-        if(!word || !/^[a-zA-Z]+$/.test(word)) {
+        const { text } = req.body
+        // check if word doesn't exist or word contain symbol or number
+        if(!text || !/^[a-zA-Z\s]+$/.test(text)) {
             res.status(400).json({
                 message: "Invalid word provided"
             })
         }
-        const letters = word.split('')
+        const letters = text.split('')
         const images = letters.map(
             letter => {
                 const imagePath = path.join(__dirname, 'sign_letters', `${letter.toUpperCase()}.png`)
@@ -18,7 +18,7 @@ const convertWord_post = async (req, res) => {
             }
         )
         res.status(201).json({
-            word,
+            text,
             images
         })
     } catch (error) {
@@ -29,4 +29,4 @@ const convertWord_post = async (req, res) => {
     }
 }
 
-module.exports = convertWord_post
+module.exports = textToSign_post

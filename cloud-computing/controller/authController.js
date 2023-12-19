@@ -1,12 +1,11 @@
 const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
-const jwt = require('jsonwebtoken')
 const { createUser, getUserByEmail } = require('../model/user')
 const { createToken, maxSession } = require('../middleware/authMiddleware')
 
 
-const signup_get = async (req, res) => {
-    res.send('<html><body><h1>SIGNUP PAGE</h1></body></html>')
+const register_get = async (req, res) => {
+    res.send('<html><body><h1>REGISTER PAGE</h1></body></html>')
 }
 
 const login_get = async (req, res) => {
@@ -17,12 +16,12 @@ const logout_get = async (req, res) => {
     res.cookie('jwt', '', {
         maxAge: 1
     })
-    res.redirect('/')
+    res.redirect('/welcome')
 }
 
-const signup_post = async (req, res) => {
+const register_post = async (req, res) => {
     try {
-        const { email, password } = req.body
+        const { name, email, password } = req.body
         const existingUser = await getUserByEmail(email)
         if (existingUser) {
             return res.status(400).json({
@@ -31,7 +30,7 @@ const signup_post = async (req, res) => {
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const id = nanoid(10)
-        await createUser(id, email, hashedPassword)
+        await createUser(id, name, email, hashedPassword)
         const token = createToken(id)
         // store token to cookies
         res.cookie('jwt', token, {
@@ -39,7 +38,7 @@ const signup_post = async (req, res) => {
             maxAge: maxSession * 1000
         })
         res.status(201).json({
-            message: 'User successfully signed in'
+            message: 'User successfully registered'
         })
     } catch (error) {
         console.log(error)
@@ -79,4 +78,4 @@ const login_post = async (req, res) => {
     }
 }
 
-module.exports = { signup_get, login_get, logout_get, signup_post, login_post }
+module.exports = { register_get, login_get, logout_get, register_post, login_post }
