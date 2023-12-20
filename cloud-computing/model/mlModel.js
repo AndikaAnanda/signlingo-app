@@ -1,13 +1,8 @@
 const tfjs = require('@tensorflow/tfjs-node')
 
-let model
-
 const loadModel = async () => {
     const modelUrl = 'https://storage.googleapis.com/signlingo-ml-model/model/model.json'
-    if (!model) {
-        model = await tfjs.loadLayersModel(modelUrl)
-    }
-    return model
+    return tfjs.loadLayersModel(modelUrl)
 }
 
 const predict = async (model, imageBuffer) => {
