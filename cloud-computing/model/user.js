@@ -45,6 +45,18 @@ const getUserByEmail = async (email) => {
     }
 }
 
+const getUserByName = async (name) => {
+    const sql = 'SELECT * FROM users WHERE name = ?'
+    const values = [name]
+
+    try {
+        const results = await executeQuery(sql, values)
+        return results[0]
+    } catch (error) {
+        throw error
+    }
+}
+
 const getEmailById = async (id) => {
     const sql = 'SELECT email FROM users WHERE id = ?'
     const values = [id]
@@ -57,4 +69,4 @@ const getEmailById = async (id) => {
     }
 }
 
-module.exports = { createUser, getUserByEmail, getEmailById }
+module.exports = { createUser, getUserByEmail, getEmailById, getUserByName }

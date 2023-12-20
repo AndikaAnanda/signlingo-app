@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const { nanoid } = require('nanoid')
-const { createUser, getUserByEmail } = require('../model/user')
+const { createUser, getUserByEmail, getUserByName } = require('../model/user')
 const { createToken, maxSession } = require('../middleware/authMiddleware')
 
 
@@ -21,11 +21,21 @@ const logout_get = async (req, res) => {
 
 const register_post = async (req, res) => {
     try {
-        const { name, email, password } = req.body
-        const existingUser = await getUserByEmail(email)
-        if (existingUser) {
+        const { name, email, password, confirmPassword } = req.body
+        const existingUserEmail = await getUserByEmail(email)
+        const existingUserName = await getUserByName(name)
+        if (existingUserEmail) {
             return res.status(400).json({
-                message: 'User already exist'
+                message: 'Email already taken'
+            })
+        } else if (existingUserName) {
+            return res.status(400).json({
+                message: 'Name already taken'
+            })
+        }
+        if (password != confirmPassword) {
+            return res.status(400).json({
+                message: "Your re-enter different password"
             })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
