@@ -8,6 +8,7 @@ const storage = new Storage({
     keyFilename: path.join(__dirname, '..', 'serviceAccounts.json')
 })
 const bucketName = 'signlingo-images'
+const folderName = 'sign-to-text-results'
 
 const signToText_post = async (req, res) => {
     const model = await loadModel()
@@ -16,8 +17,12 @@ const signToText_post = async (req, res) => {
         const predictions = await predict(model, imageBuffer)
 
         // save image to cloud storage
-        const filename = `sign-to-text-results/image-${Date.now()}.jpg`
+        const filename = `${folderName}/image-${Date.now()}.jpg`
         await saveToCloudStorage(bucketName, filename, imageBuffer)
+
+        // perform cleanup if number of images exceed the limit
+        await performImageCleanup(bucketName, folderName, 10)
+
         res.status(201).json({
             message: `Prediction result: ${predictions}`
         })
@@ -49,6 +54,18 @@ const saveToCloudStorage = async (bucketName, filename, fileBuffer) => {
 
         stream.end(fileBuffer);
     });
+}
+
+const performImageCleanup = async (bucketName, folderName, maxSize) => {
+    const bucket = storage.bucket(bucketName)
+    const files = await bucket.getFiles({
+        prefix: folderName
+    })
+    if (files[0].length > maxSize) {
+        const filesToDelete = files[0].slice(0, files[0].length - maxSize)
+        // delete oldest file
+        await Promise.all(filesToDelete.map((file) => file.delete()))
+    }
 }
 
 module.exports = signToText_post
