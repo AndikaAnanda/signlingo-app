@@ -5,9 +5,9 @@ const path = require('path')
 
 const storage = new Storage({
     projectId: 'signlingo-app',
-    keyFilename: 'C:\\Users\\User\\OneDrive\\Desktop\\SignLingo-main\\cloud-computing\\serviceAccounts.json'
+    keyFilename: path.join(__dirname, '..', 'serviceAccounts.json')
 })
-const bucketName = 'signling-photoshot-results'
+const bucketName = 'signlingo-images'
 
 const signToText_post = async (req, res) => {
     const model = await loadModel()
@@ -16,7 +16,7 @@ const signToText_post = async (req, res) => {
         const predictions = await predict(model, imageBuffer)
 
         // save image to cloud storage
-        const filename = `image-${Date.now()}.jpg`
+        const filename = `sign-to-text-results/image-${Date.now()}.jpg`
         await saveToCloudStorage(bucketName, filename, imageBuffer)
         res.status(201).json({
             message: `Prediction result: ${predictions}`

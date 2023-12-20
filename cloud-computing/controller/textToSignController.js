@@ -1,5 +1,11 @@
 const path = require('path')
 const fs = require('fs')
+const { Storage } = require('@google-cloud/storage')
+
+const storage = new Storage({
+    projectId: 'signlingo-app',
+    keyFilename: path.join(__dirname, '..', 'serviceAccounts.json')
+})
 
 const textToSign_post = async (req, res) => {
     try {
