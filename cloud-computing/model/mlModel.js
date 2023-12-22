@@ -1,7 +1,7 @@
 const tfjs = require('@tensorflow/tfjs-node')
 
 const loadModel = async () => {
-    const modelUrl = 'https://storage.googleapis.com/signlingo-ml-model/model/model.json'
+    const modelUrl = 'https://storage.googleapis.com/signlingo-ml-model/modelfix/model.json'
     return tfjs.loadLayersModel(modelUrl)
 }
 

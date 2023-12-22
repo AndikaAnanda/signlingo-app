@@ -16,6 +16,15 @@ const signToText_post = async (req, res) => {
         const imageBuffer = req.file.buffer
         const predictions = await predict(model, imageBuffer)
 
+        // find index of the maximum value on predictions array
+        const maxIndex = predictions.indexOf(Math.max(...predictions))
+        console.log(Math.max(...predictions))
+
+        // get corresponding letter from maxIndex
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        const predictedLetter = alphabet[maxIndex]
+        console.log(predictedLetter)
+
         // save image to cloud storage
         const filename = `${folderName}/image-${Date.now()}.jpg`
         await saveToCloudStorage(bucketName, filename, imageBuffer)
