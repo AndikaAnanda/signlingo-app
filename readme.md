@@ -25,13 +25,9 @@ SignLingo app aims to make learning sign language easier and more accessible. Th
 
 ## Library used for Android Application
 
-1. [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview)
-2. [Lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)
-3. [Glide](https://github.com/bumptech/glide)
-4. [Retrofit 2](https://square.github.io/retrofit/)
-5. [Material Design](https://material.io/develop/android)
-6. [Shared Preferences](https://developer.android.com/reference/android/content/SharedPreferences)
-7. [Datastore](https://developer.android.com/topic/libraries/architecture/datastore)
+1. [Jetpack](https://developer.android.com/guide/topics/ui/layout/recyclerview)
+2. [JUnit](https://developer.android.com/jetpack/androidx/releases/lifecycle)
+3. [Splash Screen](https://github.com/bumptech/glide)
 
 ## Library used for Back-end System (Node.js with NPM)
 
@@ -43,16 +39,16 @@ SignLingo app aims to make learning sign language easier and more accessible. Th
 6. [Multer](https://www.npmjs.com/package/multer)
 7. [JsonWebToken](https://www.npmjs.com/package/jsonwebtoken)
 8. [Bcrypt](https://www.npmjs.com/package/bcrypt)
-12. [Dotenv](https://www.npmjs.com/package/dotenv)
-13. [Cors](https://www.npmjs.com/package/cors)
-14. [Cookie-parser](https://www.npmjs.com/package/cookie-parser)
+9. [Dotenv](https://www.npmjs.com/package/dotenv)
+10. [Cookie-parser](https://www.npmjs.com/package/cookie-parser)
+11. [@tensorflow/tfjs-node]
 
 ## Prototype
 You can see it [here](https://www.figma.com/file/IcUbiDaLCVxeD0PbAlQ95Q/SignLingo?type=design&node-id=0-1&mode=design&t=9LuQ2RdaSkUiyTYd-0).
 
-## How to use our app
+<!-- ## How to use our app
 
-You can install the APK to your phone by downloading it from [here](https://drive.google.com/file/d/1yUKNMWpcXSTz37HKpPKrEpuRATCeW-8l/view?usp=sharing).
+You can install the APK to your phone by downloading it from [here](https://drive.google.com/file/d/1yUKNMWpcXSTz37HKpPKrEpuRATCeW-8l/view?usp=sharing). -->
 
 <!-- ## Deploying to GCP
 
