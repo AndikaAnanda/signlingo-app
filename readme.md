@@ -1,4 +1,4 @@
-# Anticede
+# SignLingo
 
 Bangkit Capstone Project CH2-PS574
 
