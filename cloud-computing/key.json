@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "signlingo-project",
+  "private_key_id": "fd908b9cd38ad2281d7f1398ea7d8642f37609d4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDL1Qovs817XUKa\nnkS3mIsgNC/a+0hH0XJ4YH0BKDmjD9hoFZJcMrZ22/iSwSKh+eeeOVoGxgUfBma6\nO4hfi5mJY6Hdrpi0wYc3RyfSeSTlCU7ya5z5TQlTpl/hrFZKReBPbTLGNE4NLp1C\nZ/R25iNNeovHFF2lJFLnj+HI+kU84eYe9sbi9NbVviKBObyk/iPwY1Rca/bk0zSK\n/LsybDya7NNjy8Not9coLgjvedZLvX6snT3AifMxJkHHNb8EWsTYWyCMGD0KwM12\njjCFKQYZB3Czdyv4NKWRHT8/9SeB/603rrp7nTcF0doq0qWQr3PFHUFv2WmPLtW6\nIiwcHb6vAgMBAAECggEAAsc7/AgiFnrDqV0Uj0EvTZwDKBVzSbUW9rpMLXHN+KUt\nluNgYik358y6F82K5QaiCfTI8Ut4coKkxUEsloPqbsY/C7rfchXx3yaf2/DWOEqH\nBcfe8Xq8m07HSh7jnYrFud9sGs2dJvVmh3I92J4lo9CLg/feQx2zWnj8FZWWz+VT\nrDgNB2J/k+F1vxSxaw/gLHTlRiWXIPvYvCrR5USPJy/xK8ukR1golh+fN4wfpzj2\n97y9UUJVrYeP836+2wEzo7baI+57pNPbMfrSbhVR46MkeQ2m+kxt0EjSAttyelMS\nvCT+p+pWmJOkKjyTPO1maOYrbo3pTBcwoq1jDmKodQKBgQDsnv5/eKZFIDJfMNkl\n3JG2YDwCiGgjGjiOcp247lDv17C5Dd79xaQHgsL6lTqMte4YK4Z0M2DpA8DP+iWE\no5qkSTE3xSthi7XtpRpEDz+1G1amDZIdnbRx0rmKsjSmZUUMQFWe2vNIiC97d0F8\nHqRGwUB7XizpB6LWnhDvfAT5uwKBgQDchpe9gbgvv2gL85rUZ7p0cQHm52X3pBz7\ndjIwJGuM5yhy3r5GtzhSoVSSsLroRR5dHc66NB282q30wQCWmj3+AIbBuF6cKuHK\nYyDrY6AucBvImguTsX16sSLmbqtgTMwHnNlI1pdZG9tQrYcXR0l5o3u/2/PG4rNS\nPcxfo1jVnQKBgQCMu8f8gwLJjGvJSCFvLnAP+87VZtIhRqAqwSrj6gKDlFLMzd46\nK4ny2agkKAup0y8oewK+LCzQimXsjQgxiqkYW1wFoqS5oMH09UTZBATNL9RqcRnd\nuYWwSTgHsRQ1f3gA4GbMU8ds9WrgUT7Glub4GkrC1XF6rAsDAQJrneTLrwKBgAcg\nemrvdEpmvzATsV9H8uisdklGFS+JqD4gNcMEik1FczMzK6cRaMqS2C7dc0zqXu7X\ndcTixktCLfkI+8HiPjqlPbWpBbW6VQ27Ymb5E0Ys7VjwUYt2Yv3CF8SmsvcrxDRC\nx2rpNH72vYG/+euwrBk4RVmP/DLjRLRVtvMoTkipAoGAN94lVvBaEPl+aS9xINic\neQJYVEfuUmY2kl+5M6riruDxRZdEXvK+K3fbscGXqlmA6LMgTlCNz9bPAs5AJ1OY\nh7nca57DohiyyysavlA4wZ9onHPUMQTKNbeRsNKxo2fm6i6gJlNvKfI1ueTKsVyP\nQAX/xjxDn5ZYh8E+jDBFV18=\n-----END PRIVATE KEY-----\n",
+  "client_email": "singlingo-app-sa@signlingo-project.iam.gserviceaccount.com",
+  "client_id": "114529346147370864258",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/singlingo-app-sa%40signlingo-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
