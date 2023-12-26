@@ -43,6 +43,39 @@ const signToText_post = async (req, res) => {
     }
 }
 
+const history_get = async (req, res) => {
+    try {
+        const history = await getImageUrls(bucketName, folderName)
+        res.status(200).json({
+            message: `Successfully retrieving history`,
+            history
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Internal Server Error'
+        })
+    }
+}
+
+// function for retrieving letter and corresponding images public URL
+const getImageUrls = async (bucketName, folderName) => {
+    const bucket = storage.bucket(bucketName)
+    const files = await bucket.getFiles({
+        prefix: folderName
+    })
+    const imageUrls = files[0].map((file) => {
+        const matches = file.name.match(/image-([A-Z])-\d+\.jpg/)
+        const letter = matches ? matches[1] : null
+        const url = `https://storage.googleapis.com/${bucketName}/${file.name}`
+        return {
+            letter,
+            url
+        }
+    })
+    return imageUrls
+}
+
 const saveToCloudStorage = async (bucketName, filename, fileBuffer) => {
     const bucket = storage.bucket(bucketName);
     const file = bucket.file(filename);
@@ -77,4 +110,4 @@ const performImageCleanup = async (bucketName, folderName, maxSize) => {
     }
 }
 
-module.exports = signToText_post
+module.exports = { signToText_post, history_get }
