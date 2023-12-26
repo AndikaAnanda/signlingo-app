@@ -7,7 +7,7 @@ const { jwtAuth, checkUser } = require('../middleware/authMiddleware')
 const upload = require('../middleware/imageMiddleware')
 
 // apply checkUser to all GET method
-// router.get('*', checkUser)
+router.get('*', checkUser)
 
 // auth
 router.post('/register', register_post)
@@ -16,11 +16,11 @@ router.get('/logout', logout_get)
 
 // sign-to-text
 router.post('/sign-to-text', upload.single('image'), signToText_post)
-router.get('/history', history_get)
+router.get('/history', jwtAuth, history_get)
 
 // text-to-sign
-router.post('/text-to-sign', textToSign_post)
-router.get('/favorites', favorites_get)
+router.post('/text-to-sign', jwtAuth, textToSign_post)
+router.get('/favorites', jwtAuth, favorites_get)
 
 
 module.exports = (app) => {
