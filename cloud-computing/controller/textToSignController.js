@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { Storage } = require('@google-cloud/storage')
+const { Storage, Iam } = require('@google-cloud/storage')
 
 const storage = new Storage({
     projectId: 'signlingo-app',
@@ -8,10 +8,11 @@ const storage = new Storage({
 })
 const bucketName = 'signlingo-images'
 const folderName = 'sign-letters'
+const favoriteFolder = 'favorite-images'
 
 const textToSign_get = async (req, res) => {
     try {
-        const { text } = req.body
+        const { text, isFavorite } = req.body
         // check if word doesn't exist or word contain symbol or number
         if(!text || !/^[a-zA-Z\s]+$/.test(text)) {
             res.status(400).json({
@@ -33,9 +34,24 @@ const textToSign_get = async (req, res) => {
                 return null;
             }
         }));
+        
+        // add result to favorite storage if isFavorite = true
+        if (isFavorite) {
+            const favoriteFolderPath = `${bucketName}/${favoriteFolder}/${text}`
+            await storage.bucket(bucketName).file(favoriteFolderPath).create()
+            await Promise.all(images.map(async (imageUrl, index) => {
+                if (imageUrl) {
+                    const destinationPath = `${favoriteFolderPath}/${index}.jpg`
+                    await storage.bucket(bucketName).upload(imageUrl, {
+                        destination: destinationPath
+                    })
+                }
+            }))
+        }
         res.status(201).json({
             text,
-            images
+            images,
+            isFavorite
         })
     } catch (error) {
         console.log(error)
@@ -45,4 +61,30 @@ const textToSign_get = async (req, res) => {
     }
 }
 
-module.exports = textToSign_get
+const favorites_get = async (req, res) => {
+    try {
+        const [files] = await storage.bucket(bucketName).getFiles({
+            prefix: favoriteFolder
+        })
+
+        const favorites = files.map(file => {
+            const text = file.name.split('/')[1]
+            const imageUrl = file.publicUrl()
+            return {
+                text,
+                images: [imageUrl]
+            }
+        })
+        res.status(200).json({
+            favorites: favorites
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            message: 'Internal Server Error'
+        })
+    }
+}
+
+
+module.exports = { textToSign_get, favorites_get }
