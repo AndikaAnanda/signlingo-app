@@ -6,8 +6,10 @@ const storage = new Storage({
     projectId: 'signlingo-app',
     keyFilename: path.join(__dirname, '..', 'key.json')
 })
+const bucketName = 'signlingo-images'
+const folderName = 'sign-letters'
 
-const textToSign_post = async (req, res) => {
+const textToSign_get = async (req, res) => {
     try {
         const { text } = req.body
         // check if word doesn't exist or word contain symbol or number
@@ -17,12 +19,20 @@ const textToSign_post = async (req, res) => {
             })
         }
         const letters = text.split('')
-        const images = letters.map(
-            letter => {
-                const imagePath = path.join(__dirname, 'sign_letters', `${letter.toUpperCase()}.png`)
-                return fs.existsSync(imagePath) ? `https://localhost:3000/public/images/${letter.toUpperCase()}.png` : null
+        const images = await Promise.all(letters.map(async (letter) => {
+            const imagePath = `${bucketName}/${folderName}/${letter.toUpperCase()}.png`
+            
+            try {
+                // Check if the file exists in Google Cloud Storage
+                await storage.bucket(bucketName).file(imagePath).getMetadata();
+                
+                // If the file exists, return the public URL
+                return storage.bucket(bucketName).file(imagePath).publicUrl();
+            } catch (error) {
+                console.error(`Error fetching image for ${letter}:`, error);
+                return null;
             }
-        )
+        }));
         res.status(201).json({
             text,
             images
@@ -35,4 +45,4 @@ const textToSign_post = async (req, res) => {
     }
 }
 
-module.exports = textToSign_post
+module.exports = textToSign_get
