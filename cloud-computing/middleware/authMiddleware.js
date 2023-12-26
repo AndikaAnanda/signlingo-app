@@ -6,7 +6,7 @@ const maxSession = 3 * 24 * 60 * 60
 
 // function for create jwt token
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET_KEY, {
+    return jwt.sign({ id }, "bangkit2023", {
         expiresIn: maxSession
     })
 }
@@ -15,7 +15,7 @@ const jwtAuth = (req, res, next) => {
     const token = req.cookies.jwt
     // check jwt is exist & verified
     if (token) {
-        jwt.verify(token, process.env.SECRET_KEY, (error, decodedToken) => {
+        jwt.verify(token, "bangkit2023", (error, decodedToken) => {
             if (error) {
                 console.log(error)
                 res.redirect('/login')
@@ -33,7 +33,7 @@ const checkUser = (req, res, next) => {
     const token = req.cookies.jwt
     // check jwt is exist & verified
     if (token) {
-        jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => {
+        jwt.verify(token, "bangkit2023", async (error, decodedToken) => {
             if (error) {
                 console.log(error)
                 res.locals.user = null
