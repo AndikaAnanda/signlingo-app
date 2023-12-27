@@ -5,7 +5,7 @@ const { Storage, Iam } = require('@google-cloud/storage')
 
 const storage = new Storage({
     projectId: 'signlingo-app',
-    keyFilename: path.join(__dirname, '..', 'key.json')
+    // keyFilename: path.join(__dirname, '..', 'key.json')
 })
 const bucketName = 'signlingo-images'
 const folderName = 'sign-letters'
@@ -60,7 +60,7 @@ const textToSign_post = async (req, res) => {
             
         }
         await performImageCleanup(bucketName, favoriteFolder, 10)
-        
+
         res.status(201).json({
             text,
             images,

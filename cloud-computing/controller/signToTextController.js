@@ -5,7 +5,7 @@ const path = require('path')
 
 const storage = new Storage({
     projectId: 'signlingo-app',
-    keyFilename: path.join(__dirname, '..', 'key.json')
+    // keyFilename: path.join(__dirname, '..', 'key.json')
 })
 const bucketName = 'signlingo-images'
 const folderName = 'sign-to-text-results'
